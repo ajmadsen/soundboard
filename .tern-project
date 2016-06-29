@@ -1,0 +1,15 @@
+{
+  "ecmaVersion": 6,
+  "libs": [
+    "browser"
+  ],
+  "loadEagerly": [
+    "app/src/*.js",
+    "app/src/*.jsx"
+  ],
+  "plugins": {
+    "modules": {},
+    "es_modules": {},
+    "react": {}
+  }
+}
