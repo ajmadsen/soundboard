@@ -9,7 +9,8 @@ export class SoundboardCategory extends React.Component {
         key={clip.file}
         clipName={clip.name}
         fileName={clip.file}
-        handleClick={(fn) => alert(fn)} />
+        handleClick={(fn) => alert(fn)}
+      />
     );
     return (
       <div className="soundboard-category">
