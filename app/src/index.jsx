@@ -1,35 +1,36 @@
 import 'babel-polyfill';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import $ from 'jquery';
 
 import { Soundboard } from './soundboard/soundboard';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './soundboard/soundboard.css';
 
 class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      meta: {}
+    };
+  }
+  componentWillMount() {
+    $.get({
+      url: 'clips.json',
+      dataType: 'json',
+      success: (data) => this.setState({meta: data}),
+      error: (xhr, status, err) => console.log(err)
+    });
+  }
   render() {
     return (
       <div className="app container">
-        <Soundboard {...PROPS} />
+        <Soundboard {...this.state.meta} />
       </div>
     );
   }
 }
-
-const PROPS = {
-  name: 'Soundboard',
-  categories: [
-    {
-      name: 'Anger',
-      clips: [
-        {
-          name: 'GAH',
-          file: 'boom.mp3'
-        }
-      ]
-    }
-  ]
-};
 
 ReactDOM.render(
   <App />,

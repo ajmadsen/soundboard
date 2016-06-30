@@ -11,9 +11,8 @@ export class SoundboardButton extends React.Component {
   render() {
     return (
       <button
-        className="btn btn-default"
-        onClick={this.click}
-      >
+        className="soundboard-button btn btn-default"
+        onClick={this.click}>
         {this.props.clipName}
       </button>
     );

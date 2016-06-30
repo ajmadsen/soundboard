@@ -3,14 +3,20 @@ import React from 'react';
 import { SoundboardButton } from './soundboard-button';
 
 export class SoundboardCategory extends React.Component {
+  constructor(props) {
+    super(props);
+    this.handlePlayClip = this.handlePlayClip.bind(this);
+  }
+  handlePlayClip(filename) {
+    this.props.handlePlayClip(filename);
+  }
   render() {
     let clips = this.props.clips.map((clip) =>
       <SoundboardButton
         key={clip.file}
         clipName={clip.name}
         fileName={clip.file}
-        handleClick={(fn) => alert(fn)}
-      />
+        handleClick={this.handlePlayClip} />
     );
     return (
       <div className="soundboard-category">
@@ -26,3 +32,11 @@ export class SoundboardCategory extends React.Component {
     );
   }
 }
+
+SoundboardCategory.propTypes = {
+  handlePlayClip: React.PropTypes.func
+};
+
+SoundboardCategory.defaultProps = {
+  handlePlayClip: () => {}
+};
