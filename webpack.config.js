@@ -1,7 +1,7 @@
 module.exports = {
   entry: './app/src/index.jsx',
   output: {
-    path: './app/lib',
+    path: './app/dist',
     filename: 'app.bundle.js'
   },
   resolve: {
@@ -30,7 +30,7 @@ module.exports = {
   },
   devServer: {
     contentBase: './app',
-    publicPath: '/lib',
+    publicPath: '/build',
     inline: true
   }
 };

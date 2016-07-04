@@ -1,3 +1,5 @@
 node_modules/
 typings/
 app/lib/
+
+.DS_Store

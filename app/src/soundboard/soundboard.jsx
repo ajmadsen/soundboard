@@ -1,8 +1,6 @@
 import React from 'react';
 import _remove from 'lodash/remove';
 
-import { SoundboardCategory } from './soundboard-category';
-
 export class Soundboard extends React.Component {
   constructor(props) {
     super(props);
@@ -41,17 +39,22 @@ export class Soundboard extends React.Component {
         clips={obj.clips}
         handlePlayClip={this.handlePlayClip} />
     );
-    let activeClips = this.state.currentlyPlaying.map((obj) =>
-      <audio key={obj.key} onEnded={this.handleClipEnd.bind(this, obj.key)} autoPlay={true}>
-        <source src={obj.file} type="audio/mp3" />
-      </audio>
-    );
     return (
       <div className="soundboard">
         <h1>{this.props.name}</h1>
         {categories}
         <div style={{display:'none'}}>
-          {activeClips}
+          {
+            this.state.currentlyPlaying.map(obj => (
+              <AudioClip
+                onEnded={key => this.handleClipEnd(key)}
+                onError={key => this.handleClipEnd(key)}
+                fileName={obj.file}
+                id={obj.key}
+                key={obj.key}
+              />
+            ))
+          }
         </div>
       </div>
     );
@@ -66,4 +69,102 @@ Soundboard.propTypes = {
 Soundboard.defaultProps = {
   name: 'Soundboard',
   categories: []
+};
+
+const SoundboardCategory = ({
+  categoryName,
+  clips,
+  handlePlayClip
+}) => (
+  <div className="soundboard-category">
+    <div className="panel panel-default">
+      <div className="panel-heading">
+        <h3 className="panel-title">{categoryName}</h3>
+      </div>
+      <div className="panel-body">
+        {
+          clips.map(clip =>
+            <SoundboardButton
+              key={clip.file}
+              clipName={clip.name}
+              fileName={clip.file}
+              onClick={handlePlayClip}
+            />
+          )
+        }
+      </div>
+    </div>
+  </div>
+);
+
+SoundboardCategory.propTypes = {
+  handlePlayClip: React.PropTypes.func
+};
+
+SoundboardCategory.defaultProps = {
+  handlePlayClip: () => {}
+};
+
+
+const SoundboardButton = ({
+  clipName,
+  fileName,
+  onClick
+}) => (
+  <button
+    className="soundboard-button btn btn-default"
+    onClick={() => onClick(fileName)}>
+    {clipName}
+  </button>
+);
+
+SoundboardButton.propTypes = {
+  onClick: React.PropTypes.func,
+  clipName: React.PropTypes.string,
+  fileName: React.PropTypes.string
+};
+
+SoundboardButton.defaultProps = {
+  onClick: () => {}
+};
+
+
+class AudioClip extends React.Component {
+  componentDidMount() {
+    const { id, onError } = this.props;
+    let handler = e => onError(id, e);
+
+    this.source.addEventListener('error', handler);
+    this.removeHandler = () => this.source.removeEventListener('error', handler);
+  }
+  componentWillUnmount() {
+    this.removeHandler();
+  }
+  render() {
+    const {
+      onEnded, fileName, id
+    } = this.props;
+    return (
+      <audio
+        onEnded={() => onEnded(id)}
+        autoPlay={true}
+      >
+        <source
+          src={fileName}
+          ref={node => this.source = node}
+          type="audio/mp3"
+        />
+      </audio>
+    );
+  }
+}
+
+AudioClip.propTypes = {
+  fileName: React.PropTypes.string.isRequired,
+  onClick: React.PropTypes.func,
+  onError: React.PropTypes.func,
+  id: React.PropTypes.oneOfType([
+    React.PropTypes.string,
+    React.PropTypes.number
+  ])
 };

@@ -3,10 +3,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import $ from 'jquery';
 
-import { Soundboard } from './soundboard/soundboard';
-
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './soundboard/soundboard.css';
+
+import { Soundboard } from './soundboard';
 
 class App extends React.Component {
   constructor(props) {
