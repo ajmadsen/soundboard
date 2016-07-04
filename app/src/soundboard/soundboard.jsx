@@ -23,7 +23,7 @@ export class Soundboard extends React.Component {
     });
   }
   handleClipEnd(key) {
-    let currentlyPlaying = this.state.currentlyPlaying;
+    let { currentlyPlaying } = this.state;
     _remove(currentlyPlaying, (o) => {
       return o.key === key;
     });
@@ -32,20 +32,24 @@ export class Soundboard extends React.Component {
     });
   }
   render() {
-    let categories = this.props.categories.map((obj) =>
-      <SoundboardCategory
-        key={obj.name}
-        name={obj.name}
-        clips={obj.clips}
-        handlePlayClip={this.handlePlayClip} />
-    );
+    const { categories, name } = this.props;
+    const { currentlyPlaying } = this.state;
     return (
       <div className="soundboard">
-        <h1>{this.props.name}</h1>
-        {categories}
+        <h1>{name}</h1>
+        {
+          categories.map(obj =>
+            <SoundboardCategory
+              key={obj.name}
+              categoryName={obj.name}
+              clips={obj.clips}
+              handlePlayClip={this.handlePlayClip}
+            />
+          )
+        }
         <div style={{display:'none'}}>
           {
-            this.state.currentlyPlaying.map(obj => (
+            currentlyPlaying.map(obj => (
               <AudioClip
                 onEnded={key => this.handleClipEnd(key)}
                 onError={key => this.handleClipEnd(key)}
