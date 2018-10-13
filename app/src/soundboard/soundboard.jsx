@@ -1,5 +1,6 @@
 import React from 'react';
 import _remove from 'lodash/remove';
+import PropTypes from 'prop-types';
 
 export class Soundboard extends React.Component {
   constructor(props) {
@@ -14,17 +15,15 @@ export class Soundboard extends React.Component {
   }
   handlePlayClip(filename) {
     this.setState({
-      currentlyPlaying: this.state.currentlyPlaying.concat(
-        {
-          key: Date.now(),
-          file: filename
-        }
-      )
+      currentlyPlaying: this.state.currentlyPlaying.concat({
+        key: Date.now(),
+        file: filename
+      })
     });
   }
   handleClipEnd(key) {
     let { currentlyPlaying } = this.state;
-    _remove(currentlyPlaying, (o) => {
+    _remove(currentlyPlaying, o => {
       return o.key === key;
     });
     this.setState({
@@ -37,28 +36,24 @@ export class Soundboard extends React.Component {
     return (
       <div className="soundboard">
         <h1>{name}</h1>
-        {
-          categories.map(obj =>
-            <SoundboardCategory
-              key={obj.name}
-              categoryName={obj.name}
-              clips={obj.clips}
-              handlePlayClip={this.handlePlayClip}
+        {categories.map(obj => (
+          <SoundboardCategory
+            key={obj.name}
+            categoryName={obj.name}
+            clips={obj.clips}
+            handlePlayClip={this.handlePlayClip}
+          />
+        ))}
+        <div style={{ display: 'none' }}>
+          {currentlyPlaying.map(obj => (
+            <AudioClip
+              onEnded={key => this.handleClipEnd(key)}
+              onError={key => this.handleClipEnd(key)}
+              fileName={obj.file}
+              id={obj.key}
+              key={obj.key}
             />
-          )
-        }
-        <div style={{display:'none'}}>
-          {
-            currentlyPlaying.map(obj => (
-              <AudioClip
-                onEnded={key => this.handleClipEnd(key)}
-                onError={key => this.handleClipEnd(key)}
-                fileName={obj.file}
-                id={obj.key}
-                key={obj.key}
-              />
-            ))
-          }
+          ))}
         </div>
       </div>
     );
@@ -66,8 +61,8 @@ export class Soundboard extends React.Component {
 }
 
 Soundboard.propTypes = {
-  name: React.PropTypes.string,
-  categories: React.PropTypes.array
+  name: PropTypes.string,
+  categories: PropTypes.array
 };
 
 Soundboard.defaultProps = {
@@ -75,63 +70,52 @@ Soundboard.defaultProps = {
   categories: []
 };
 
-const SoundboardCategory = ({
-  categoryName,
-  clips,
-  handlePlayClip
-}) => (
+const SoundboardCategory = ({ categoryName, clips, handlePlayClip }) => (
   <div className="soundboard-category">
     <div className="panel panel-default">
       <div className="panel-heading">
         <h3 className="panel-title">{categoryName}</h3>
       </div>
       <div className="panel-body">
-        {
-          clips.map(clip =>
-            <SoundboardButton
-              key={clip.file}
-              clipName={clip.name}
-              fileName={clip.file}
-              onClick={handlePlayClip}
-            />
-          )
-        }
+        {clips.map(clip => (
+          <SoundboardButton
+            key={clip.file}
+            clipName={clip.name}
+            fileName={clip.file}
+            onClick={handlePlayClip}
+          />
+        ))}
       </div>
     </div>
   </div>
 );
 
 SoundboardCategory.propTypes = {
-  handlePlayClip: React.PropTypes.func
+  handlePlayClip: PropTypes.func
 };
 
 SoundboardCategory.defaultProps = {
   handlePlayClip: () => {}
 };
 
-
-const SoundboardButton = ({
-  clipName,
-  fileName,
-  onClick
-}) => (
+const SoundboardButton = ({ clipName, fileName, onClick }) => (
   <button
     className="soundboard-button btn btn-default"
-    onClick={() => onClick(fileName)}>
+    onClick={() => onClick(fileName)}
+  >
     {clipName}
   </button>
 );
 
 SoundboardButton.propTypes = {
-  onClick: React.PropTypes.func,
-  clipName: React.PropTypes.string,
-  fileName: React.PropTypes.string
+  onClick: PropTypes.func,
+  clipName: PropTypes.string,
+  fileName: PropTypes.string
 };
 
 SoundboardButton.defaultProps = {
   onClick: () => {}
 };
-
 
 class AudioClip extends React.Component {
   componentDidMount() {
@@ -139,23 +123,19 @@ class AudioClip extends React.Component {
     let handler = e => onError(id, e);
 
     this.source.addEventListener('error', handler);
-    this.removeHandler = () => this.source.removeEventListener('error', handler);
+    this.removeHandler = () =>
+      this.source.removeEventListener('error', handler);
   }
   componentWillUnmount() {
     this.removeHandler();
   }
   render() {
-    const {
-      onEnded, fileName, id
-    } = this.props;
+    const { onEnded, fileName, id } = this.props;
     return (
-      <audio
-        onEnded={() => onEnded(id)}
-        autoPlay={true}
-      >
+      <audio onEnded={() => onEnded(id)} autoPlay={true}>
         <source
           src={fileName}
-          ref={node => this.source = node}
+          ref={node => (this.source = node)}
           type="audio/mp3"
         />
       </audio>
@@ -164,11 +144,8 @@ class AudioClip extends React.Component {
 }
 
 AudioClip.propTypes = {
-  fileName: React.PropTypes.string.isRequired,
-  onClick: React.PropTypes.func,
-  onError: React.PropTypes.func,
-  id: React.PropTypes.oneOfType([
-    React.PropTypes.string,
-    React.PropTypes.number
-  ])
+  fileName: PropTypes.string.isRequired,
+  onClick: PropTypes.func,
+  onError: PropTypes.func,
+  id: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
 };

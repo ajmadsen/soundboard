@@ -1,7 +1,6 @@
 import 'babel-polyfill';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import $ from 'jquery';
 
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -15,12 +14,10 @@ class App extends React.Component {
     };
   }
   componentWillMount() {
-    $.get({
-      url: 'clips.json',
-      dataType: 'json',
-      success: (data) => this.setState({meta: data}),
-      error: (xhr, status, err) => console.log(err)
-    });
+    fetch('clips.json')
+      .then(res => res.json())
+      .then(data => this.setState({ meta: data }))
+      .catch(err => console.log(err));
   }
   render() {
     return (
@@ -31,7 +28,4 @@ class App extends React.Component {
   }
 }
 
-ReactDOM.render(
-  <App />,
-  document.querySelector('#content')
-);
+ReactDOM.render(<App />, document.querySelector('#content'));

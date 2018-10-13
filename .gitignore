@@ -3,3 +3,7 @@ typings/
 app/lib/
 
 .DS_Store
+*.mp3
+clips.json
+dist/**
+.cache/**
