@@ -1,5 +1,4 @@
 import React from 'react';
-import _remove from 'lodash/remove';
 import PropTypes from 'prop-types';
 
 export class Soundboard extends React.Component {
@@ -23,11 +22,9 @@ export class Soundboard extends React.Component {
   }
   handleClipEnd(key) {
     let { currentlyPlaying } = this.state;
-    _remove(currentlyPlaying, o => {
-      return o.key === key;
-    });
+    currentlyPlaying = currentlyPlaying.filter(o => o.key !== key);
     this.setState({
-      currentlyPlaying: currentlyPlaying
+      currentlyPlaying
     });
   }
   render() {
