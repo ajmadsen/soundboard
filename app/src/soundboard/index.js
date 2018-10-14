@@ -1,7 +1,5 @@
-import { Soundboard } from './Soundboard';
+import { Soundboard } from './soundboard';
 import './soundboard.css';
 
-export {
-  Soundboard
-};
+export { Soundboard };
 export default Soundboard;
