@@ -11,6 +11,7 @@ import './Soundboard.css';
 
 type Props = {
   name: string;
+  subtitle?: string;
   categories: CategoryType[];
 };
 
@@ -23,6 +24,16 @@ export function Soundboard(props: Props) {
     <SoundboardContext.Provider value={context}>
       <div className="soundboard">
         <h1>{props.name}</h1>
+        {props.subtitle && (
+          <p className="lead">
+            {props.subtitle.split(/\n/).map((l, idx) => (
+              <React.Fragment key={idx}>
+                {l}
+                <br />
+              </React.Fragment>
+            ))}
+          </p>
+        )}
         {props.categories.map(obj => (
           <Category key={obj.name} categoryName={obj.name} clips={obj.clips} />
         ))}

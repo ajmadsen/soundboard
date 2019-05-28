@@ -1,5 +1,6 @@
 export type ClipData = {
   name: string;
+  subtitle?: string;
   categories: Category[];
 };
 

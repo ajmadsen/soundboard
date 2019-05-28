@@ -13,7 +13,7 @@ function Category({ categoryName, clips }: Props) {
     <div className="soundboard-category">
       <div className="card">
         <div className="card-body">
-          <h3 className="card-title">{categoryName}</h3>
+          <h4 className="card-title">{categoryName}</h4>
           {clips.map(clip => (
             <Button key={clip.file} clipName={clip.name} fileName={clip.file} />
           ))}
