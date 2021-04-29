@@ -1327,18 +1327,6 @@
     "@types/unist" "*"
     "@types/vfile-message" "*"
 
-"@types/whatwg-fetch@^0.0.33":
-  version "0.0.33"
-  resolved "https://registry.yarnpkg.com/@types/whatwg-fetch/-/whatwg-fetch-0.0.33.tgz#19c0d2863c8cb2380f21a1c736b79cbf7895bb13"
-  integrity sha1-GcDShjyMsjgPIaHHNrecv3iVuxM=
-  dependencies:
-    "@types/whatwg-streams" "*"
-
-"@types/whatwg-streams@*":
-  version "0.0.7"
-  resolved "https://registry.yarnpkg.com/@types/whatwg-streams/-/whatwg-streams-0.0.7.tgz#28bfe73dc850562296367249c4b32a50db81e9d3"
-  integrity sha512-6sDiSEP6DWcY2ZolsJ2s39ZmsoGQ7KVwBDI3sESQsEm9P2dHTcqnDIHRZFRNtLCzWp7hCFGqYbw5GyfpQnJ01A==
-
 "@types/yargs@^12.0.2", "@types/yargs@^12.0.9":
   version "12.0.12"
   resolved "https://registry.yarnpkg.com/@types/yargs/-/yargs-12.0.12.tgz#45dd1d0638e8c8f153e87d296907659296873916"
@@ -3936,9 +3924,9 @@ fb-watchman@^2.0.0:
     bser "^2.0.0"
 
 figgy-pudding@^3.5.1:
-  version "3.5.1"
-  resolved "https://registry.yarnpkg.com/figgy-pudding/-/figgy-pudding-3.5.1.tgz#862470112901c727a0e495a80744bd5baa1d6790"
-  integrity sha512-vNKxJHTEKNThjfrdJwHc7brvM6eVevuO5nTj6ez8ZQ1qbXTvGthucRF7S4vf2cr71QVnT70V34v0S1DyQsti0w==
+  version "3.5.2"
+  resolved "https://registry.yarnpkg.com/figgy-pudding/-/figgy-pudding-3.5.2.tgz#b4eee8148abb01dcf1d1ac34367d59e12fa61d6e"
+  integrity sha512-0btnI/H8f2pavGMN8w40mlSKOfTK2SVJmBfBeVIj3kNw0swwgzyRq0d5TJVOwodFmtvpPeWPN/MCcfuWF0Ezbw==
 
 figures@^2.0.0:
   version "2.0.0"
@@ -8810,9 +8798,9 @@ sshpk@^1.7.0:
     tweetnacl "~0.14.0"
 
 ssri@^6.0.1:
-  version "6.0.1"
-  resolved "https://registry.yarnpkg.com/ssri/-/ssri-6.0.1.tgz#2a3c41b28dd45b62b63676ecb74001265ae9edd8"
-  integrity sha512-3Wge10hNcT1Kur4PDFwEieXSCMCJs/7WvSACcrMYrNp+b8kDL1/0wJch5Ni2WrtwEa2IO8OsVfeKIciKCDx/QA==
+  version "6.0.2"
+  resolved "https://registry.yarnpkg.com/ssri/-/ssri-6.0.2.tgz#157939134f20464e7301ddba3e90ffa8f7728ac5"
+  integrity sha512-cepbSq/neFK7xB6A50KHN0xHDotYzq58wWCa5LeWqnPrHG8GzfEjO/4O8kpmcGW+oaxkvhEJCWgbgNk4/ZV93Q==
   dependencies:
     figgy-pudding "^3.5.1"
 
